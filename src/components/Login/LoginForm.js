@@ -1,28 +1,33 @@
-import React, { useState } from 'react'
+import React, { useEffect, useContext } from 'react'
 import { Link } from 'react-router-dom'
+import {Input} from '../Forms/Input'
+import { Button } from '../Forms/Button'
+import { useForm } from '../../hooks/useForm'
+import { TOKEN_POST, USER_GET } from '../../api'
+import { UserContext } from '../../contexts/UserContext'
 
 export const LoginForm = () => {
 
-  const [username, setUsername] = useState('');
-  const [password, setPassword] = useState('');
+  const {userLogin , data} = useContext(UserContext);
+  
+  const username = useForm();
+  const password = useForm();
 
 
 
-  function handleSubmit (event) {
-    fetch('https://dogsapi.origamid.dev/json/jwt-auth/v1/token', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
+  
 
-      },
-      body: JSON.stringify({username, password}),
 
-    }).then((response) => {
-      console.log(response)
-      return response.json();
-    }).then((json)=>{
-      console.log(json);
-    })
+  async function handleSubmit (event) {
+    console.log(data);
+    event.preventDefault();
+
+    if(username.validate() && password.validate()){
+     userLogin(username.value, password.value)
+      // const token = data
+      // console.log(data);
+        
+  }
     
 
   }
@@ -33,20 +38,11 @@ export const LoginForm = () => {
   return (
     <div>
       <h1>Login</h1>
-      <form action="" onSubmit={handleSubmit()}> 
-        <input type='text' 
-        value={username}
-        onChange={({target})=> setUsername(target.value)
-        }
-        />
-
-        <input type='text' 
-          value={password}
-          onChange={({target})=> setPassword(target.value)
-        }
-        />
+      <form action="" onSubmit={handleSubmit}> 
+        <Input label="Usuário" type="text" name="username" {...username}/>
+        <Input label="Senha"   type="password" name="password" {...password}/>
         
-        <button>Entrar</button>
+        <Button>Entrar</Button>
       </form>
       <Link to="/login/criar/">Cadastros</Link>
 
