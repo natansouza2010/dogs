@@ -5,10 +5,13 @@ import { Button } from '../Forms/Button'
 import { useForm } from '../../hooks/useForm'
 import { TOKEN_POST, USER_GET } from '../../api'
 import { UserContext } from '../../contexts/UserContext'
+import { Erro } from '../Helper/Erro'
+import styles from './LoginForm.module.css'
+import stylesBtn from '../Forms/Button.module.css'
 
 export const LoginForm = () => {
 
-  const {userLogin , data} = useContext(UserContext);
+  const {userLogin , data, error, loading } = useContext(UserContext);
   
   const username = useForm();
   const password = useForm();
@@ -24,6 +27,7 @@ export const LoginForm = () => {
 
     if(username.validate() && password.validate()){
      userLogin(username.value, password.value)
+    
       // const token = data
       // console.log(data);
         
@@ -36,16 +40,27 @@ export const LoginForm = () => {
 
 
   return (
-    <div>
-      <h1>Login</h1>
-      <form action="" onSubmit={handleSubmit}> 
+    <section className="animeLeft">
+      <h1 className="title">Login</h1>
+      <form className={styles.form} onSubmit={handleSubmit}> 
         <Input label="Usuário" type="text" name="username" {...username}/>
         <Input label="Senha"   type="password" name="password" {...password}/>
         
-        <Button>Entrar</Button>
-      </form>
-      <Link to="/login/criar/">Cadastros</Link>
+        {loading ? 
+        (<Button disabled>Carregando</Button>): 
 
-    </div>
+        (<Button>Entrar</Button>)
+        }
+
+        <Erro erro={error}/>  
+      </form>
+      <Link className={styles.perdeu} to="/login/perdeu">Perdeu a senha ?</Link>
+      <div className={styles.cadastro}>
+        <h2 className={styles.subtitle}> Cadastre-se</h2>
+        <p>Ainda não possui conta ? Cadastre-se no site.</p>
+      </div>
+      <Link className={stylesBtn.button} to="/login/criar/">Cadastro</Link>
+
+    </section>
   )
 }
