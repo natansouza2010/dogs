@@ -6,7 +6,7 @@ import { Erro } from '../Helper/Erro.js';
 import Loading from '../Helper/Loading.js';
 import styles from './FeedPhotos.module.css';
 
-const FeedPhotos = () => {
+const FeedPhotos = ({setModalPhoto}) => {
 
     const {data, loading, error, request} = useFetch();
     
@@ -29,6 +29,7 @@ const FeedPhotos = () => {
                 <FeedPhotosItem
                     key={photo.id}
                     photo={photo}
+                    setModalPhoto={setModalPhoto}
                     
                 />
         ))}
