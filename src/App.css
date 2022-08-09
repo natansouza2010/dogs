@@ -48,7 +48,9 @@ a{
     padding: 0 1 rem;
     margin: 0 auto;
 }
-
+.mainContainer{
+    margin-top: 8rem;
+}
 .animeLeft{
     opacity: 0;
     transform: translateX(-20px);
