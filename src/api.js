@@ -91,5 +91,24 @@ export const PHOTO_GET = (id) => {
             cache: 'no-store'
         },
         
+    }  
+}
+
+export const COMMENT_POST = (id, body) => {
+    return {
+        url: `${API_URL}` + `/api/comment/${id}`,
+        options: {
+            method: 'POST',
+            cache: 'no-store',
+            headers: {
+                'Content-Type': 'application/json',
+                 Authorization: 'Bearer' + window.localStorage.getItem('token'),
+    
+    
+            },
+            body: JSON.stringify(body)
+        },
+        
+        
     }
 }
