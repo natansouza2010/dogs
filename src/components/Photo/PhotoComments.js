@@ -8,7 +8,7 @@ const PhotoComments = (props) => {
   const { login } = useContext(UserContext);
   return (
     <>
-      <ul className={styles.comment}>
+      <ul className={styles.comments}>
         {comments.map(comment => <li key ={comment.comment_ID}>
             <b>{comment.comment_author} :</b>
             <span>{comment.comment_content}</span>
